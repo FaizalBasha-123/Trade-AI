@@ -1,0 +1,18 @@
+name: Keep n8n Alive
+on:
+  schedule:
+    # Runs every 5 minutes (adjust if needed)
+    - cron: '*/5 * * * *'
+  workflow_dispatch:  # Optional manual trigger
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping n8n instance
+        run: |
+          # Replace with your Render n8n URL (use /health or /rest/ping)
+          curl -sSf -X GET "https://n8n-tradeai-1.onrender.com/rest/ping" \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${{ secrets.N8N_API_KEY }}"
+          echo "Pinged n8n at $(date)"
