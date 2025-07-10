@@ -1,0 +1,14 @@
+name: 🔁 Ping n8n Webhook Every 5 Minutes
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # Runs every 5 minutes
+  workflow_dispatch:       # Manual trigger option
+
+jobs:
+  ping-n8n:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔔 Ping trade-start webhook
+        run: |
+          curl -X GET "https://n8n-tradeai-1.onrender.com/webhook/trade-start"
