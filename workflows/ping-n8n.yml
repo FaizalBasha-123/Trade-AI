@@ -1,18 +1,14 @@
-name: Keep n8n Alive
+name: 🔁 Ping n8n Webhook Every 5 Minutes
+
 on:
   schedule:
-    # Runs every 5 minutes (adjust if needed)
-    - cron: '*/5 * * * *'
-  workflow_dispatch:  # Optional manual trigger
+    - cron: "*/5 * * * *"  # Runs every 5 minutes
+  workflow_dispatch:       # Manual trigger option
 
 jobs:
-  ping:
+  ping-n8n:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping n8n instance
+      - name: 🔔 Ping trade-start webhook
         run: |
-          # Replace with your Render n8n URL (use /health or /rest/ping)
-          curl -sSf -X GET "https://n8n-tradeai-1.onrender.com/rest/ping" \
-            -H "Accept: application/json" \
-            -H "Authorization: Bearer ${{ secrets.N8N_API_KEY }}"
-          echo "Pinged n8n at $(date)"
+          curl -X GET "https://n8n-tradeai-1.onrender.com/webhook/trade-start"
